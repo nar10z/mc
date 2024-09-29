@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  mc:
+    container_name: mc
+    image: itzg/minecraft-server
+    environment:
+      EULA: "TRUE"
+      ONLINE_MODE: "FALSE"
+
+      SERVER_NAME: "BunekEr minecraft server"
+      MOTD: "Vanilla Minecraft, Chill Vibes Only"
+
+      TYPE: "FORGE"
+      VERSION: 1.19.2
+      FORGE_VERSION: 43.1.52
+#      FORGE_FORCE_REINSTALL: "TRUE"
+
+      MAX_PLAYERS: 10
+      OPS: nar10z
+      OVERRIDE_ICON: "TRUE"
+      ICON: /extras/bnk-icon.png
+      LEVEL: bnk-vanilla-1
+      MODS_FILE: /extras/mods.txt
+
+      MEMORY: "2G"
+      MAX_MEMORY: "7G"
+      INIT_MEMORY: "1G"
+
+      SERVER_PORT: 25565
+      GUI: "FALSE"
+      CONSOLE: "FALSE"
+      ENABLE_ROLLING_LOGS: "true"
+#      DEBUG: "true"
+#      REMOVE_OLD_MODS: "true"
+    volumes:
+      - ./data:/data
+      - ./mods.txt:/extras/mods.txt:ro
+      - ./bnk-icon.png:/extras/bnk-icon.png
+    ports:
+      - "25565:25565"
+      - "8100:8100"
+    stdin_open: true
+    tty: true
+    networks:
+      - minecraft
+    deploy:
+      resources:
+        limits:
+          memory: 7G
+
+networks:
+  minecraft:
+    driver: bridge
